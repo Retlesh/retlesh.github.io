@@ -88,5 +88,5 @@ export function assignDataForChart(data) {
     let chart = new CustomChart();
     setTimeout(() => {
         chart.createChart(labels, datasets);
-    }, 300);
+    }, 500);
 }
