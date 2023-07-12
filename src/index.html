@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <link href="styles.css" rel="stylesheet" />
+
+  <title>Open-Meteo API</title>
+</head>
+
+<body>
+  <main class="container-fluid">
+    <section class="flex-column" id="options-date">
+      <div class="form-group">
+        <div class="col-md-12 form-control-plaintext">
+          <div class="col-md-4 form-control-plaintext">
+            <h2>Specify Time Interval</h2>
+          </div>
+          <div class="row g-2">
+            <div class="col form-floating">
+              <input type="date" min="2010-01-01" max="2019-12-31" class="form-control" id="start_date" />
+              <label for="start_date" class="form-label">Start date</label>
+            </div>
+            <div class="col form-floating">
+              <input type="date" min="2010-01-01" max="2019-12-31" class="form-control" id="end_date" />
+              <label for="end_date" class="form-label">End date</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="options-temp">
+      <div class="row py-3">
+        <h2>Daily weather variables</h2>
+
+        <div style="display: flex; flex-wrap: wrap" class="col-md-12">
+          <div class="form-check col-md-4">
+            <input class="form-check-input" type="checkbox" value="" id="temp_max" />
+            <label for="temp_max" class="form-check-label">Maximum temperature</label>
+          </div>
+          <div class="form-check col-md-4">
+            <input class="form-check-input" type="checkbox" value="" id="temp_min" />
+            <label for="temp_min" class="form-check-label">Minimum temperature</label>
+          </div>
+          <div class="form-check col-md-4">
+            <input class="form-check-input" type="checkbox" value="" id="temp_mean" />
+            <label for="temp_mean" class="form-check-label">Mean temperature</label>
+          </div>
+          <div class="form-check col-md-4">
+            <input class="form-check-input" type="checkbox" value="" id="apparent_temp_max" />
+            <label for="apparent_temp_max" class="form-check-label">Maximum apparent temperature</label>
+          </div>
+          <div class="form-check col-md-4">
+            <input class="form-check-input" type="checkbox" value="" id="apparent_temp_min" />
+            <label for="apparent_temp_min" class="form-check-label">Minimum apparent temperature</label>
+          </div>
+          <div class="form-check col-md-4">
+            <input class="form-check-input" type="checkbox" value="" id="apparent_temp_mean" />
+            <label for="apparent_temp_mean" class="form-check-label">Mean apparent temperature</label>
+          </div>
+        </div>
+      </div>
+    </section>
+    <button disabled="disabled" type="button" id="calculate-dates" class="btn btn-outline-info">
+      Create new chart
+    </button>
+    <section class="flex-column" id="charts"></section>
+  </main>
+</body>
+
+<!-- IMPORT FIREBASE -->
+<script type="module" src="firebase.js"></script>
+<!-- IMPORT BOOTSTRAP -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- IMPORT JQUERY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+  integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- IMPORT CHARTJS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- IMPORT MAIN -->
+<script type="module" src="main.js"></script>
+
+<script type="module">
+
+  //Check if dates are not empty and if start date is before end date
+  $('#start_date, #end_date').change(() => {
+    if($('#start_date').val() != '' && $('#end_date').val() != '' && $('#start_date').val() < $('#end_date').val()) {
+      $('#calculate-dates').prop('disabled', false);
+    } else {
+      $('#calculate-dates').prop('disabled', true);
+    }
+    
+  })
+</script>
+
+</html>
